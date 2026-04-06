@@ -64,11 +64,68 @@ function PremiumButton({ onClick, children }: { onClick?: () => void, children: 
 
         {/* Content */}
         <span className="relative z-10 flex items-center justify-center gap-3 text-lg">
-          <span className="group-hover:text-white transition-colors duration-300">
+          <span className="group-hover:text-amber-400 transition-colors duration-300">
             {children}
           </span>
         </span>
       </motion.button>
+    </div>
+  );
+}
+
+function LanguageDropdown() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState({ code: 'us', name: 'English' });
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const languages = [
+    { code: 'us', name: 'English' },
+    { code: 'es', name: 'Español' },
+    { code: 'br', name: 'Português (BR)' },
+    { code: 'cn', name: '简体中文' },
+    { code: 'jp', name: '日本語' },
+    { code: 'tr', name: 'Türkçe' },
+  ];
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-2 bg-white/50 hover:bg-white/80 backdrop-blur-md border border-outline-variant/20 rounded-full py-2 px-4 text-sm font-medium transition-all"
+      >
+        <span className="uppercase text-xs font-bold text-on-surface-variant">{selectedLanguage.code}</span>
+        <span>{selectedLanguage.name}</span>
+        <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+      
+      {isOpen && (
+        <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-outline-variant/10 rounded-2xl shadow-xl py-2 z-50">
+          {languages.map((lang) => (
+            <button
+              key={lang.name}
+              onClick={() => {
+                setSelectedLanguage(lang);
+                setIsOpen(false);
+              }}
+              className={`w-full text-left px-4 py-2 hover:bg-surface-container-low flex items-center gap-3 ${selectedLanguage.name === lang.name ? 'text-primary font-bold' : 'text-on-surface'}`}
+            >
+              <span className="uppercase text-xs font-bold text-on-surface-variant">{lang.code}</span>
+              {lang.name}
+              {selectedLanguage.name === lang.name && <Check className="w-4 h-4 ml-auto" />}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -85,13 +142,14 @@ function Navbar() {
           GPA | ELI
         </a>
         <div className="hidden md:flex items-center space-x-8">
-          <button onClick={() => scrollToSection('campus')} className="text-on-surface-variant font-medium hover:text-primary transition-colors">Campus</button>
+          <button onClick={() => scrollToSection('international-family')} className="text-on-surface-variant font-medium hover:text-primary transition-colors">ELI</button>
           <button onClick={() => scrollToSection('programs')} className="text-on-surface-variant font-medium hover:text-primary transition-colors">Programs</button>
           <button onClick={() => scrollToSection('how-it-works')} className="text-on-surface-variant font-medium hover:text-primary transition-colors">How It Works</button>
           <button onClick={() => scrollToSection('reviews')} className="text-on-surface-variant font-medium hover:text-primary transition-colors">Reviews</button>
           <button onClick={() => scrollToSection('faq')} className="text-on-surface-variant font-medium hover:text-primary transition-colors">FAQ</button>
         </div>
         <div className="flex items-center gap-4">
+          <LanguageDropdown />
           <button 
             onClick={() => scrollToSection('enrollment')}
             className="bg-primary text-white px-6 py-2.5 rounded-lg font-label text-xs uppercase tracking-widest hover:bg-black transition-all"
@@ -190,7 +248,7 @@ function Hero() {
 
 function VideoShowcase() {
   return (
-    <section className="max-w-screen-2xl mx-auto px-8 py-20">
+    <section className="max-w-screen-2xl mx-auto px-8 py-20 -mt-[60px]">
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -199,7 +257,7 @@ function VideoShowcase() {
       >
         <div className="aspect-video w-full bg-surface-container-highest relative overflow-hidden">
           <img alt="Campus Life" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDt4FFP6RxPsJapd9NXzuwwOsl76ILaHuQbgkWLs_aM6JbvfRQyZWFjUeRYNAHwN-04woT-aXsTn-vLelVGy6dYTjUV2iqdNHYLrP3mtlr5VH9Y574CUluH93bu5w4tiifpGKol8YbnktZU5bruhqfTlq3j4XV4O3v6EPr8bnM8PGuRq7geLtDZZGojbMO7f0GvBg4I9EnVotWr9Ldrq4CRr9nKuONcJ0NpGvrctUfAdVBxnTD2sWPNVXB8kji6P9Rd1TeSFaLltU1Z" />
-          <div className="absolute inset-0 bg-primary/40 flex items-center justify-center">
+          <div className="absolute inset-0 bg-primary/40 flex items-center justify-center -mt-[20px]">
             <button className="w-24 h-24 rounded-full liquid-glass flex items-center justify-center text-primary hover:scale-110 transition-transform group/play">
               <div className="w-20 h-20 rounded-full border-2 border-primary/20 flex items-center justify-center animate-pulse-soft">
                 <Play className="w-10 h-10 translate-x-1 fill-current" />
@@ -300,7 +358,7 @@ function Programs() {
       </div>
       <div className="mb-16 relative z-10">
         <div className="max-w-2xl">
-          <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold mb-4 block">The ELI path</span>
+          <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold mb-4 block -mt-[55px]">The ELI path</span>
           <h2 className="font-headline text-5xl font-bold tracking-tight mb-6" id="programs-title">
             Academic Ecosystem
           </h2>
@@ -336,8 +394,8 @@ function ChooseProgram() {
   return (
     <section className="max-w-screen-2xl mx-auto px-8 py-24 border-t border-outline-variant/10">
       <div className="text-center mb-16">
-        <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold mb-4 block">Study Options</span>
-        <h2 className="font-headline text-5xl font-bold tracking-tight text-primary">Choose Your Program</h2>
+        <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold mb-4 block -mt-[75px]">Study Options</span>
+        <h2 className="font-headline text-5xl font-bold tracking-tight text-primary -mb-[25px]">Choose Your Program</h2>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -426,8 +484,8 @@ function HowItWorks() {
   return (
     <section className="py-32 bg-[#000040] text-white relative overflow-hidden" id="how-it-works">
       <div className="max-w-screen-2xl mx-auto px-8 relative z-10">
-        <div className="text-center mb-24">
-          <span className="font-label text-xs uppercase tracking-widest text-[#fcd400] font-bold mb-4 block">The Journey</span>
+        <div className="text-center mb-24 mt-0 -mb-[70px]">
+          <span className="font-label text-xs uppercase tracking-widest text-[#fcd400] font-bold mb-4 block -mt-[70px]">We got your back in every step</span>
           <h2 className="font-headline text-5xl md:text-7xl font-bold tracking-tight text-white leading-none">How it works</h2>
         </div>
         
@@ -466,7 +524,7 @@ function CampusIntro() {
       <div className="max-w-screen-2xl mx-auto px-8">
         <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold mb-4 block -mt-[100px]">Florida Campus</span>
         <h2 className="font-headline text-5xl font-bold tracking-tight mb-6">Live the real American experience</h2>
-        <p className="text-on-surface-variant text-lg max-w-4xl leading-relaxed mt-0">
+        <p className="text-on-surface-variant text-lg max-w-4xl leading-relaxed mt-0 -mb-[40px]">
           Don't settle for crowded classrooms, boring lectures, and language apps that don't deliver actual results. Immerse yourself in the true American lifestyle! Study alongside thousands of American college students and top-tier native instructors on a sprawling, 100+ acre world-class campus.
         </p>
       </div>
@@ -523,7 +581,7 @@ function CampusGallery() {
   };
 
   return (
-    <section className="py-24 bg-surface-container-low overflow-hidden relative group mr-0" id="campus">
+    <section className="py-24 bg-white overflow-hidden relative group mr-0" id="campus">
       <div 
         className="relative -mt-[50px]"
         onMouseEnter={() => setIsHovered(true)}
@@ -616,11 +674,11 @@ function Reviews() {
   return (
     <section className="max-w-screen-2xl mx-auto px-8 py-24" id="reviews">
       <div className="text-center mb-16">
-        <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold mb-4 block">What our students say</span>
+        <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold mb-4 block -mt-[35px]">What our students say</span>
         <h2 className="font-headline text-5xl font-bold tracking-tight">Voices of ELI</h2>
       </div>
       
-      <div className="relative mb-20 overflow-visible bg-surface-container-low py-12 border-y border-outline-variant/10 flex flex-col gap-6 group">
+      <div className="relative mb-20 overflow-visible bg-surface-container-low py-12 border-y border-outline-variant/10 flex flex-col gap-6 group -mt-[30px]">
         <div className="flex animate-marquee whitespace-nowrap items-center w-max">
           {[...testimonialsRow1, ...testimonialsRow1, ...testimonialsRow1, ...testimonialsRow1].map((t, i) => (
             <TestimonialBubble key={i} t={t} />
@@ -1191,10 +1249,9 @@ function Enrollment() {
   };
 
   return (
-    <section className="max-w-screen-2xl mx-auto px-8 py-24" id="enrollment">
-      <div className="bg-white rounded-[3rem] shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+    <section className="max-w-screen-2xl mx-auto px-8 pt-[50px] pb-24 -mt-[40px] mb-[-10px]" id="enrollment">
+      <div className="bg-white rounded-[3rem] shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 mt-0">
         <div className="p-8 md:p-16 flex flex-col justify-center">
-          <h2 className="font-headline text-5xl font-bold mb-6 text-primary">Start your journey today!</h2>
           <p className="text-on-surface-variant mb-10 text-lg">It's free and takes 2 minutes. Fill out the form and a GPA advisor will contact you within 24 hours.</p>
           
           <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
@@ -1321,16 +1378,6 @@ function Enrollment() {
             </div>
           </div>
 
-          {/* Text Bubble */}
-          <div className="relative z-30 w-full max-w-sm mt-8">
-            <div className="bg-gray-400/20 backdrop-blur-xl p-6 rounded-3xl shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-white/60 text-primary relative cursor-pointer">
-              <p className="italic text-base leading-relaxed font-medium mb-4">"So simple and natural—you'll thank yourself for starting with GPA today!"</p>
-              <div className="flex items-center justify-end gap-3">
-                <h4 className="font-headline text-xl font-bold">Hector</h4>
-                <span className="text-[10px] uppercase tracking-widest text-secondary font-bold">Colombia</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -1373,7 +1420,7 @@ function FAQ() {
   return (
     <section className="max-w-screen-xl mx-auto px-8 py-24" id="faq">
       <div className="text-center mb-16">
-        <h2 className="font-headline text-4xl md:text-5xl font-bold tracking-tight text-primary">
+        <h2 className="font-headline text-4xl md:text-5xl font-bold tracking-tight text-primary -mt-[55px]">
           Frequently Asked <span className="text-secondary">Questions</span>
         </h2>
         <div className="w-24 h-1 bg-secondary mx-auto mt-6 rounded-full"></div>
@@ -1390,8 +1437,8 @@ function FAQ() {
 function Footer() {
   return (
     <footer aria-label="Footer" className="bg-surface-variant/30 py-20 px-8">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-screen-2xl mx-auto">
-        <div className="col-span-1 md:col-span-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 max-w-screen-2xl mx-auto">
+        <div className="col-span-1 lg:col-span-2">
           <div className="text-lg font-black text-primary mb-6">GLOBAL PARTNERS ACADEMY</div>
           <p className="text-on-surface-variant max-w-sm mb-8 leading-relaxed">
             GPA is a premier academic institution in Orlando, Florida, providing affordable, high-quality American education.
@@ -1409,8 +1456,28 @@ function Footer() {
           <h4 className="font-headline font-bold mb-6 uppercase tracking-widest text-xs">University</h4>
           <ul className="space-y-4">
             <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Programs</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Admissions</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Campus Life</a></li>
           </ul>
         </div>
+        <div>
+          <h4 className="font-headline font-bold mb-6 uppercase tracking-widest text-xs">Resources</h4>
+          <ul className="space-y-4">
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">FAQ</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Student Support</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="font-headline font-bold mb-6 uppercase tracking-widest text-xs">Legal</h4>
+          <ul className="space-y-4">
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div className="max-w-screen-2xl mx-auto mt-16 pt-8 border-t border-outline-variant/10 text-center text-on-surface-variant/60 text-sm">
+        &copy; {new Date().getFullYear()} Global Partners Academy. All rights reserved.
       </div>
     </footer>
   );
@@ -1418,13 +1485,13 @@ function Footer() {
 
 function InternationalFamily() {
   return (
-    <section className="bg-surface-container-low py-24 px-8 border-t border-outline-variant/10 -mt-[62px] -mb-[50px] relative group" id="international-family">
+    <section className="bg-white pb-[64px] pt-24 px-8 border-t border-outline-variant/10 -mt-[20px] -mb-[50px] relative group" id="international-family">
       <div className="absolute top-0 left-12 z-0 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12 pointer-events-none">
         <Globe className="w-60 h-60 text-primary/15" strokeWidth={1.5} />
       </div>
       <div className="max-w-screen-2xl mx-auto text-right relative z-10">
-        <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold -mt-[50px] mb-[15px] block">Global Community</span>
-        <h2 className="font-headline text-5xl font-bold tracking-tight text-primary mb-6">ELI: an international family</h2>
+        <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold -mt-[50px] mb-0 block">Global Community</span>
+        <h2 className="font-headline text-5xl font-bold tracking-tight text-primary mb-6 -mb-[10px]">ELI: an international family</h2>
         <p className="text-on-surface-variant text-lg max-w-4xl ml-auto leading-relaxed -mb-[35px]">
           Connect with students from around the world who are ready to transform their lives through 100% immersion. With a calendar packed with american traditions, weekly activities, field trips and elective classes in the vacation capital of the world, your learning doesn't stop when the bell rings. In ELI you don't just learn the language—you live it every single day!
         </p>
@@ -1444,11 +1511,25 @@ export default function App() {
         <VideoShowcase />
         <InternationalFamily />
         <CampusGallery />
+        <section className="py-12 text-left max-w-screen-2xl mx-auto px-8 relative group">
+          <div className="absolute top-0 right-12 z-0 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12 pointer-events-none">
+            <BadgeCheck className="w-60 h-60 text-primary/15" />
+          </div>
+          <h2 className="font-headline text-xs font-bold tracking-tight mb-2 text-secondary">Global Partners Academy</h2>
+          <h2 className="font-headline text-5xl font-bold tracking-tight mb-6">Your VIP Admission Concierge</h2>
+          <p className="text-on-surface-variant text-lg max-w-4xl leading-relaxed mb-[-20px]">
+            We make your journey to Seminole State College's ELI as smooth as possible. By providing expert help with every form and requirement, we eliminate the guesswork, delays, and stress that often come with studying abroad. Our team handles the administrative details from start to finish; you simply focus on the dream of mastering English and experiencing life in the US.
+          </p>
+        </section>
         <Stats />
         <Programs />
         <ChooseProgram />
         <HowItWorks />
         <Reviews />
+        <section className="max-w-screen-2xl mx-auto px-8 py-24 text-center">
+          <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold mb-4 block">Apply now</span>
+          <h2 className="font-headline text-5xl font-bold tracking-tight text-primary mb-[-200px]">Start your journey today!</h2>
+        </section>
         <Enrollment />
         <FAQ />
       </main>
