@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import {
   MessageSquare,
@@ -19,6 +19,7 @@ import {
   PlaneTakeoff,
   Headset,
   BadgeCheck,
+  Globe,
   Shield,
   MessageCircle,
   Rocket,
@@ -26,7 +27,51 @@ import {
   ChevronRight,
   ChevronDown,
   Check,
+  Sparkles,
 } from 'lucide-react';
+
+function PremiumButton({ onClick, children }: { onClick?: () => void, children: React.ReactNode }) {
+  return (
+    <div className="relative group">
+      {/* Outer Glow on Hover */}
+      <motion.div
+        variants={{
+          initial: { opacity: 0, scale: 0.8 },
+          hover: { opacity: 0.4, scale: 1.05 }
+        }}
+        className="absolute -inset-4 bg-primary/30 blur-2xl rounded-full pointer-events-none z-0"
+      />
+      
+      <motion.button
+        onClick={onClick}
+        whileHover="hover"
+        whileTap={{ scale: 0.98 }}
+        initial="initial"
+        className="relative z-10 w-full sm:w-auto bg-primary hover:bg-primary/50 backdrop-blur-md text-white px-14 py-5 rounded-full font-bold tracking-wide shadow-2xl transition-all duration-500 overflow-hidden border border-white/10"
+      >
+        {/* Glassy Highlight */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
+        
+        {/* Shimmer Sweep Effect */}
+        <motion.div
+          variants={{
+            initial: { x: '-150%', skewX: -20 },
+            hover: { x: '250%', skewX: -20 }
+          }}
+          transition={{ duration: 1.8, ease: "easeInOut", repeat: Infinity, repeatDelay: 1 }}
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent w-1/3 pointer-events-none"
+        />
+
+        {/* Content */}
+        <span className="relative z-10 flex items-center justify-center gap-3 text-lg">
+          <span className="group-hover:text-white transition-colors duration-300">
+            {children}
+          </span>
+        </span>
+      </motion.button>
+    </div>
+  );
+}
 
 function Navbar() {
   const scrollToSection = (id: string) => {
@@ -34,10 +79,10 @@ function Navbar() {
   };
 
   return (
-    <nav aria-label="Main Navigation" className="bg-surface/70 backdrop-blur-xl font-headline font-bold tracking-tight fixed w-full top-0 z-50 border-b border-outline-variant/10">
+    <nav aria-label="Main Navigation" className="bg-white/70 backdrop-blur-xl font-headline font-bold tracking-tight fixed w-full top-0 z-50">
       <div className="flex justify-between items-center w-full px-8 py-4 max-w-screen-2xl mx-auto">
-        <a aria-label="Global Partners Academy Home" className="text-xl font-bold tracking-tighter text-primary uppercase" href="/">
-          Global Partners Academy
+        <a aria-label="GPA | ELI Home" className="text-xl font-bold tracking-tighter text-primary uppercase" href="/">
+          GPA | ELI
         </a>
         <div className="hidden md:flex items-center space-x-8">
           <button onClick={() => scrollToSection('campus')} className="text-on-surface-variant font-medium hover:text-primary transition-colors">Campus</button>
@@ -65,15 +110,12 @@ function Hero() {
   };
 
   return (
-    <section aria-labelledby="hero-title" className="relative min-h-[85vh] flex flex-col justify-center items-center px-8 overflow-hidden">
-      <div className="absolute -top-24 -left-24 w-96 h-96 bg-secondary-container/20 rounded-full blur-[120px]"></div>
-      <div className="absolute top-1/2 -right-24 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]"></div>
-      
+    <section aria-labelledby="hero-title" className="relative py-32 flex flex-col justify-center items-center px-8 overflow-hidden bg-white">
       <div className="relative z-10 max-w-5xl text-center">
         <motion.span 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="font-label text-xs uppercase tracking-[0.3em] text-secondary font-bold mb-6 block"
+          className="font-label text-xs uppercase tracking-[0.3em] text-secondary font-bold mt-[20px] mb-6 block"
         >
           Florida Academic Excellence
         </motion.span>
@@ -137,13 +179,9 @@ function Hero() {
           transition={{ delay: 0.5 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-6"
         >
-          <button className="w-full sm:w-auto bg-primary text-white px-10 py-4 rounded-xl font-bold tracking-wide shadow-2xl hover:translate-y-[-2px] transition-all">Get Started Today</button>
-          <button 
-            onClick={scrollToEnrollment}
-            className="w-full sm:w-auto flex items-center justify-center gap-3 bg-white px-10 py-4 rounded-xl font-bold border border-outline-variant/30 hover:bg-surface-container transition-colors"
-          >
-            <MessageSquare className="w-5 h-5" /> Apply Now
-          </button>
+          <PremiumButton onClick={scrollToEnrollment}>
+            Get Started Today
+          </PremiumButton>
         </motion.div>
       </div>
     </section>
@@ -422,6 +460,20 @@ function HowItWorks() {
   );
 }
 
+function CampusIntro() {
+  return (
+    <section className="py-24 bg-white overflow-hidden relative" id="campus-intro">
+      <div className="max-w-screen-2xl mx-auto px-8">
+        <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold mb-4 block -mt-[100px]">Florida Campus</span>
+        <h2 className="font-headline text-5xl font-bold tracking-tight mb-6">Live the real American experience</h2>
+        <p className="text-on-surface-variant text-lg max-w-4xl leading-relaxed mt-0">
+          Don't settle for crowded classrooms, boring lectures, and language apps that don't deliver actual results. Immerse yourself in the true American lifestyle! Study alongside thousands of American college students and top-tier native instructors on a sprawling, 100+ acre world-class campus.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 function CampusGallery() {
   const images = [
     "https://lh3.googleusercontent.com/aida-public/AB6AXuBfKAyhfSLt1q7n5-9-CW5-wT3w8W8Iyf2Hblvb27HmKzOL1qBnL5j4FvnE3UwFSOyeQrKcfQsZApIBw9BY36i3uUWJe5xopVnXU9-h4jMw2am0D1jUyLabMPw-FagzpiyRbl5zELRxIh_V-4saVpLKueG-GH9ftOC09pmO8YOExy1L3I_LeBmmGguWMbWFkoIrGViHQrKfKP6kmCAzk5oiQXtp0h5EzAK-qJNUPkuwjbMyFEURiWGOyeUO_HIICf4uxAbL8RHOV54V",
@@ -471,16 +523,9 @@ function CampusGallery() {
   };
 
   return (
-    <section className="py-24 bg-surface-container-low overflow-hidden relative group" id="campus">
-      <div className="max-w-screen-2xl mx-auto px-8 mb-12">
-        <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold mb-4 block">Florida Campus</span>
-        <h2 className="font-headline text-5xl font-bold tracking-tight mb-6">Live the real American experience</h2>
-        <p className="text-on-surface-variant text-lg max-w-4xl leading-relaxed">
-          Don't settle for crowded classrooms, boring lectures, and language apps that don't deliver actual results. Immerse yourself in the true American lifestyle! Study alongside thousands of American college students and top-tier native instructors on a sprawling, 100+ acre world-class campus.
-        </p>
-      </div>
+    <section className="py-24 bg-surface-container-low overflow-hidden relative group mr-0" id="campus">
       <div 
-        className="relative"
+        className="relative -mt-[50px]"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -534,7 +579,7 @@ function Reviews() {
     { name: "Sofia", country: "Italy", quote: "Beautiful campus", fullReview: "The campus is absolutely beautiful. I love studying outside under the palm trees.", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sofia&backgroundColor=transparent" },
   ];
 
-  const TestimonialBubble = ({ t }: { t: any }) => (
+  const TestimonialBubble = ({ t }: { t: any, key?: any }) => (
     <div className="relative group/bubble mx-3">
       <div className="bg-white rounded-3xl p-4 pr-8 flex items-center gap-4 shadow-sm border border-outline-variant/10 min-w-max cursor-pointer hover:shadow-md transition-shadow">
         <div className="w-14 h-14 rounded-full bg-[#a8d5d1] overflow-hidden flex-shrink-0 flex items-center justify-center">
@@ -1292,7 +1337,7 @@ function Enrollment() {
   );
 }
 
-function FAQItem({ question, answer }: { question: string, answer: string }) {
+function FAQItem({ question, answer }: { question: string, answer: string, key?: any }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -1373,10 +1418,14 @@ function Footer() {
 
 function InternationalFamily() {
   return (
-    <section className="bg-surface-container-low py-16 px-8 border-t border-outline-variant/10">
-      <div className="max-w-screen-xl mx-auto text-center">
-        <h2 className="font-headline text-4xl md:text-5xl font-bold tracking-tight text-primary mb-6">ELI: an international family</h2>
-        <p className="text-on-surface-variant text-lg md:text-xl max-w-4xl mx-auto leading-relaxed">
+    <section className="bg-surface-container-low py-24 px-8 border-t border-outline-variant/10 -mt-[62px] -mb-[50px] relative group" id="international-family">
+      <div className="absolute top-0 left-12 z-0 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12 pointer-events-none">
+        <Globe className="w-60 h-60 text-primary/15" strokeWidth={1.5} />
+      </div>
+      <div className="max-w-screen-2xl mx-auto text-right relative z-10">
+        <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold -mt-[50px] mb-[15px] block">Global Community</span>
+        <h2 className="font-headline text-5xl font-bold tracking-tight text-primary mb-6">ELI: an international family</h2>
+        <p className="text-on-surface-variant text-lg max-w-4xl ml-auto leading-relaxed -mb-[35px]">
           Connect with students from around the world who are ready to transform their lives through 100% immersion. With a calendar packed with american traditions, weekly activities, field trips and elective classes in the vacation capital of the world, your learning doesn't stop when the bell rings. In ELI you don't just learn the language—you live it every single day!
         </p>
       </div>
@@ -1386,14 +1435,15 @@ function InternationalFamily() {
 
 export default function App() {
   return (
-    <div className="bg-surface font-body text-on-background structural-grid min-h-screen selection:bg-secondary-container selection:text-on-secondary-container">
+    <div className="bg-white font-body text-on-background min-h-screen selection:bg-secondary-container selection:text-on-secondary-container">
       <div className="grain-overlay"></div>
       <Navbar />
       <main className="pt-16">
         <Hero />
-        <CampusGallery />
-        <InternationalFamily />
+        <CampusIntro />
         <VideoShowcase />
+        <InternationalFamily />
+        <CampusGallery />
         <Stats />
         <Programs />
         <ChooseProgram />
