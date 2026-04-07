@@ -1,0 +1,191 @@
+import React, { useState } from 'react';
+import { MessageCircle } from 'lucide-react';
+import { PhoneInput, countryCodes } from '../ui/PhoneInput';
+import { CustomDatePicker } from '../ui/CustomDatePicker';
+import { CustomSelect } from '../ui/CustomSelect';
+import { assets } from '../../config/assets';
+
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+export function Enrollment() {
+  const [country, setCountry] = useState("");
+  const [term, setTerm] = useState("");
+  const [level, setLevel] = useState("");
+  const [course, setCourse] = useState("");
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [dob, setDob] = useState("");
+  const [dobError, setDobError] = useState("");
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    if (emailError && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value)) {
+      setEmailError("");
+    }
+  };
+
+  const handleEmailBlur = () => {
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setEmailError("Please enter a valid email address");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const validateAge = (dateStr: string) => {
+    if (!dateStr) return;
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const birthDate = new Date(y, m - 1, d);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    if (age < 14) {
+      setDobError("You must be at least 14 years old");
+    } else {
+      setDobError("");
+    }
+  };
+
+  const handleDobChange = (val: string) => {
+    setDob(val);
+    validateAge(val);
+  };
+
+  const handleDobBlur = () => {
+    validateAge(dob);
+  };
+
+  return (
+    <section className="max-w-screen-2xl mx-auto px-8 pt-[50px] pb-24 -mt-[40px] mb-[-10px]" id="enrollment">
+      <div className="bg-white rounded-[3rem] shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 mt-0">
+        <div className="p-8 md:p-16 flex flex-col justify-center">
+          <p className="text-on-surface-variant mb-10 text-lg">It's free and takes 2 minutes. Fill out the form and a GPA advisor will contact you within 24 hours.</p>
+          
+          <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">Full Name</label>
+                <input className="w-full bg-surface-container-low border-0 rounded-xl py-4 px-6 focus:ring-2 focus:ring-primary/20 text-sm outline-none" placeholder="John Doe" type="text" />
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">Email Address</label>
+                <div className="relative">
+                  <input 
+                    className={`w-full bg-surface-container-low border-0 rounded-xl py-4 px-6 focus:ring-2 focus:ring-primary/20 text-sm outline-none transition-all ${emailError ? 'ring-2 ring-red-500/50 bg-red-50/50' : ''}`} 
+                    placeholder="john@example.com" 
+                    type="email" 
+                    value={email}
+                    onChange={handleEmailChange}
+                    onBlur={handleEmailBlur}
+                  />
+                  {emailError && (
+                    <div className="text-red-500 text-xs font-medium flex items-center gap-1 mt-2 animate-in slide-in-from-top-1">
+                      <span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>
+                      {emailError}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">WhatsApp Number</label>
+                <PhoneInput />
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">Date of Birth</label>
+                <div className="relative">
+                  <CustomDatePicker 
+                    value={dob}
+                    onChange={handleDobChange}
+                    onBlur={handleDobBlur}
+                    error={dobError}
+                  />
+                  {dobError && (
+                    <div className="text-red-500 text-xs font-medium flex items-center gap-1 mt-2 animate-in slide-in-from-top-1">
+                      <span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>
+                      {dobError}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">Country of Origin</label>
+                <CustomSelect 
+                  placeholder="Select country" 
+                  options={countryCodes.map(c => c.country)} 
+                  value={country} 
+                  onChange={setCountry} 
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">Preferred Start Date</label>
+                <CustomSelect 
+                  placeholder="Select term" 
+                  options={["Spring 2026", "Summer 2026", "Fall 2026", "Spring 2027"]} 
+                  value={term} 
+                  onChange={setTerm} 
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">English Level</label>
+                <CustomSelect 
+                  placeholder="Select level" 
+                  options={["Beginner (A1-A2)", "Intermediate (B1-B2)", "Advanced (C1-C2)"]} 
+                  value={level} 
+                  onChange={setLevel} 
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">Program of interest</label>
+                <CustomSelect 
+                  placeholder="Select a program" 
+                  options={["Short-Term", "Long-Term", "Professional"]} 
+                  value={course} 
+                  onChange={setCourse} 
+                />
+              </div>
+            </div>
+            <button className="w-full bg-primary text-white py-5 rounded-xl font-headline font-bold text-xl hover:bg-black transition-all shadow-lg hover:shadow-primary/20" type="submit">
+              Apply Now
+            </button>
+          </form>
+        </div>
+        
+        <div className="hidden lg:block relative bg-white p-12 flex flex-col items-center justify-center overflow-hidden">
+          <div className="absolute -bottom-10 -right-10 text-primary/5 z-0">
+            <MessageCircle className="w-96 h-96 animate-pulse" />
+          </div>
+
+          <div className="relative w-full max-w-xs aspect-[9/16] mb-20 z-10 mx-auto">
+            <div className="absolute inset-2 bg-surface-container-high rounded-[3rem] rotate-3"></div>
+            
+            <div className="absolute inset-6 rounded-3xl overflow-hidden shadow-2xl z-10 hover:-translate-y-2 hover:scale-[1.02] transition-all duration-500 cursor-pointer hover:z-30 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] group">
+              <img alt="Student" className="w-full h-full object-cover mix-blend-luminosity opacity-80 transition-transform duration-700 group-hover:scale-110" src={assets.form.mainStudent} />
+              <div className="absolute inset-0 bg-primary/60 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-80"></div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/80 to-transparent"></div>
+            </div>
+
+            <div className="absolute top-4 -left-24 w-40 bg-white p-2 pb-8 shadow-xl -rotate-12 z-20 rounded-sm hover:-translate-y-4 hover:rotate-[-4deg] hover:scale-110 transition-all duration-500 cursor-pointer hover:z-30 hover:shadow-2xl">
+              <img alt="Campus Palm Trees" className="w-full aspect-square object-cover" src={assets.form.polaroid1} />
+            </div>
+
+            <div className="absolute bottom-8 -right-24 w-44 bg-white p-2 pb-8 shadow-2xl rotate-12 z-20 rounded-sm hover:-translate-y-4 hover:rotate-[4deg] hover:scale-110 transition-all duration-500 cursor-pointer hover:z-30 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)]">
+              <img alt="Global Community" className="w-full aspect-square object-cover" src={assets.form.polaroid2} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

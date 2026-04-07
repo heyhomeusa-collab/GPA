@@ -1,10 +1,22 @@
-import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
-import App from './App.tsx';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App';
 import './index.css';
+import { LanguageProvider } from './context/LanguageContext';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+const container = document.getElementById('root');
+if (!container) throw new Error('Failed to find root element');
+
+const root = createRoot(container);
+root.render(
+  <React.StrictMode>
+    <LanguageProvider>
+      <App />
+    </LanguageProvider>
+  </React.StrictMode>
 );
