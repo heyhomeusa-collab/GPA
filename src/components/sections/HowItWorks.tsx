@@ -1,27 +1,30 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { MessageSquare, FileText, ShieldCheck, PlaneTakeoff, Headset } from 'lucide-react';
+import { useTranslation } from '../../hooks/useTranslation';
 
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const steps = [
-  { num: "01", icon: MessageSquare, title: "Free Consultation", desc: "Tell us about your goals and dreams. We answer every question you have." },
-  { num: "02", icon: FileText, title: "Application", desc: "Gather and submit your documentation and submit your information. We handle the application process." },
-  { num: "03", icon: ShieldCheck, title: "Visa Support", desc: "We will provide support and make sure you feel ready for your Visa request." },
-  { num: "04", icon: PlaneTakeoff, title: "Arrival", desc: "We will help you find everything you need from your first day in USA. Airport transportation, Housing, Insurance and arrival to your first classes." },
-  { num: "05", icon: Headset, title: "Student Support", desc: "Have a question? let us know! We are ready and happy to help!" }
-];
-
 export function HowItWorks() {
+  const { t } = useTranslation();
+
+  const steps = [
+    { num: "01", icon: MessageSquare, title: t.howItWorks.steps.step1.title, desc: t.howItWorks.steps.step1.desc },
+    { num: "02", icon: FileText, title: t.howItWorks.steps.step2.title, desc: t.howItWorks.steps.step2.desc },
+    { num: "03", icon: ShieldCheck, title: t.howItWorks.steps.step3.title, desc: t.howItWorks.steps.step3.desc },
+    { num: "04", icon: PlaneTakeoff, title: t.howItWorks.steps.step4.title, desc: t.howItWorks.steps.step4.desc },
+    { num: "05", icon: Headset, title: t.howItWorks.steps.step5.title, desc: t.howItWorks.steps.step5.desc }
+  ];
+
   return (
     <section className="py-32 bg-[#000040] text-white relative overflow-hidden" id="how-it-works">
       <div className="max-w-screen-2xl mx-auto px-8 relative z-10">
         <div className="text-center mb-24 mt-0 -mb-[70px]">
-          <span className="font-label text-xs uppercase tracking-widest text-[#fcd400] font-bold mb-4 block -mt-[70px]">We got your back in every step</span>
-          <h2 className="font-headline text-5xl md:text-7xl font-bold tracking-tight text-white leading-none">How it works</h2>
+          <span className="font-label text-xs uppercase tracking-widest text-[#fcd400] font-bold mb-4 block -mt-[70px]">{t.howItWorks.badge}</span>
+          <h2 className="font-headline text-5xl md:text-7xl font-bold tracking-tight text-white leading-none">{t.howItWorks.title}</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">

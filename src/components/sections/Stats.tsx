@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { GraduationCap } from 'lucide-react';
 import { assets } from '../../config/assets';
+import { useTranslation } from '../../hooks/useTranslation';
 
 /**
  * @license
@@ -9,6 +10,8 @@ import { assets } from '../../config/assets';
  */
 
 export function Stats() {
+  const { t } = useTranslation();
+
   return (
     <section aria-label="Key Statistics" className="max-w-screen-2xl mx-auto px-8 py-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 overflow-visible">
@@ -34,17 +37,17 @@ export function Stats() {
           className="md:col-span-2 bg-[#000040] text-white rounded-[2.5rem] flex flex-col justify-between relative overflow-hidden group p-12 pl-16 md:pl-24 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 md:-ml-20 lg:-ml-32"
         >
           <div className="relative z-10">
-            <h2 className="font-headline text-4xl font-bold mb-4">The GPA Advantage</h2>
-            <p className="text-white/80 text-lg max-w-md italic">As the exclusive enrollment partner of the English Language Institute (ELI) at Seminole State College of Florida, GPA offers a seamless, guided, and stress-free enrollment for international students.</p>
+            <h2 className="font-headline text-4xl font-bold mb-4">{t.stats.title}</h2>
+            <p className="text-white/80 text-lg max-w-md italic">{t.stats.description}</p>
           </div>
           <div className="relative z-10 grid grid-cols-2 gap-8 mt-12">
             <div>
-              <span className="block text-5xl font-headline font-bold text-[#fcd400] mb-2">VIP</span>
-              <span className="text-sm font-label uppercase tracking-widest opacity-70">Onboarding: From first hello to first class</span>
+              <span className="block text-5xl font-headline font-bold text-[#fcd400] mb-2">{t.stats.vip}</span>
+              <span className="text-sm font-label uppercase tracking-widest opacity-70">{t.stats.vipDesc}</span>
             </div>
             <div>
-              <span className="block text-5xl font-headline font-bold text-[#fcd400] mb-2">100%</span>
-              <span className="text-sm font-label uppercase tracking-widest opacity-70">Application, i-20, Visa prep, arriving support</span>
+              <span className="block text-5xl font-headline font-bold text-[#fcd400] mb-2">{t.stats.hundred}</span>
+              <span className="text-sm font-label uppercase tracking-widest opacity-70">{t.stats.hundredDesc}</span>
             </div>
           </div>
           <div className="absolute -top-8 -right-8 p-8 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12">

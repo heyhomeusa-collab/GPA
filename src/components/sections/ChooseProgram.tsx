@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { GraduationCap, Star, Rocket, ShieldCheck } from 'lucide-react';
+import { useTranslation } from '../../hooks/useTranslation';
 
 /**
  * @license
@@ -8,11 +9,13 @@ import { GraduationCap, Star, Rocket, ShieldCheck } from 'lucide-react';
  */
 
 export function ChooseProgram() {
+  const { t } = useTranslation();
+
   return (
     <section className="max-w-screen-2xl mx-auto px-8 py-24 border-t border-outline-variant/10">
       <div className="text-center mb-16">
-        <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold mb-4 block -mt-[75px]">Study Options</span>
-        <h2 className="font-headline text-5xl font-bold tracking-tight text-primary -mb-[25px]">Choose Your Program</h2>
+        <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold mb-4 block -mt-[75px]">{t.chooseProgram.badge}</span>
+        <h2 className="font-headline text-5xl font-bold tracking-tight text-primary -mb-[25px]">{t.chooseProgram.title}</h2>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -28,17 +31,17 @@ export function ChooseProgram() {
           <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center mb-8 relative z-10">
             <GraduationCap className="text-primary w-8 h-8" />
           </div>
-          <h3 className="font-headline text-2xl font-bold mb-4 relative z-10">Full Academic Term</h3>
+          <h3 className="font-headline text-2xl font-bold mb-4 relative z-10">{t.chooseProgram.fullTerm.title}</h3>
           <div className="text-on-surface-variant mb-8 flex-grow relative z-10">
-            <p>Experience a fully immersive, intensive English program designed for international students planning to study in the USA for a semester or more. Secure your F-1 student status, live the authentic American college experience, and earn your official completion certificate from Seminole State College.</p>
+            <p>{t.chooseProgram.fullTerm.desc}</p>
             <div className="mt-4 space-y-1">
-              <div className="flex items-center gap-2"><ShieldCheck className="text-primary w-4 h-4" /> I-20 form issuance</div>
-              <div className="flex items-center gap-2"><ShieldCheck className="text-primary w-4 h-4" /> F-1 Visa process support</div>
-              <div className="flex items-center gap-2"><ShieldCheck className="text-primary w-4 h-4" /> 16-week intensive semesters</div>
-              <div className="flex items-center gap-2"><ShieldCheck className="text-primary w-4 h-4" /> Academic Certificate</div>
+              <div className="flex items-center gap-2"><ShieldCheck className="text-primary w-4 h-4" /> {t.chooseProgram.fullTerm.bullet1}</div>
+              <div className="flex items-center gap-2"><ShieldCheck className="text-primary w-4 h-4" /> {t.chooseProgram.fullTerm.bullet2}</div>
+              <div className="flex items-center gap-2"><ShieldCheck className="text-primary w-4 h-4" /> {t.chooseProgram.fullTerm.bullet3}</div>
+              <div className="flex items-center gap-2"><ShieldCheck className="text-primary w-4 h-4" /> {t.chooseProgram.fullTerm.bullet4}</div>
             </div>
           </div>
-          <button className="w-full bg-primary text-white py-4 rounded-xl font-bold hover:bg-black transition-colors relative z-10">Apply for Long-Term</button>
+          <button className="w-full bg-primary text-white py-4 rounded-xl font-bold hover:bg-black transition-colors relative z-10">{t.chooseProgram.fullTerm.cta}</button>
         </motion.div>
 
         <motion.div 
@@ -54,17 +57,17 @@ export function ChooseProgram() {
           <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-8 relative z-10">
             <Star className="text-white w-8 h-8" />
           </div>
-          <h3 className="font-headline text-2xl font-bold mb-4 relative z-10">Short-Term English</h3>
+          <h3 className="font-headline text-2xl font-bold mb-4 relative z-10">{t.chooseProgram.shortTerm.title}</h3>
           <div className="text-on-primary-container mb-8 flex-grow relative z-10">
-            <p>Perfect for tourists, professionals or anyone 16+ looking to boost their English skills during a short time or vacation. ELI's unique 4-12 week programs with cultural activities included, will make you have an unforgetable and authentic experience!</p>
+            <p>{t.chooseProgram.shortTerm.desc}</p>
             <div className="mt-4 space-y-1">
-              <div className="flex items-center gap-2"><ShieldCheck className="text-secondary-container w-4 h-4" /> No F1 visa required</div>
-              <div className="flex items-center gap-2"><ShieldCheck className="text-secondary-container w-4 h-4" /> Flexible start dates year-round</div>
-              <div className="flex items-center gap-2"><ShieldCheck className="text-secondary-container w-4 h-4" /> Full Campus facilities access</div>
-              <div className="flex items-center gap-2"><ShieldCheck className="text-secondary-container w-4 h-4" /> Attendance Certificate</div>
+              <div className="flex items-center gap-2"><ShieldCheck className="text-secondary-container w-4 h-4" /> {t.chooseProgram.shortTerm.bullet1}</div>
+              <div className="flex items-center gap-2"><ShieldCheck className="text-secondary-container w-4 h-4" /> {t.chooseProgram.shortTerm.bullet2}</div>
+              <div className="flex items-center gap-2"><ShieldCheck className="text-secondary-container w-4 h-4" /> {t.chooseProgram.shortTerm.bullet3}</div>
+              <div className="flex items-center gap-2"><ShieldCheck className="text-secondary-container w-4 h-4" /> {t.chooseProgram.shortTerm.bullet4}</div>
             </div>
           </div>
-          <button className="w-full bg-secondary-container text-on-secondary-container py-4 rounded-xl font-bold hover:brightness-110 transition-colors relative z-10">Apply for Short-Term</button>
+          <button className="w-full bg-secondary-container text-on-secondary-container py-4 rounded-xl font-bold hover:brightness-110 transition-colors relative z-10">{t.chooseProgram.shortTerm.cta}</button>
         </motion.div>
 
         <motion.div 
@@ -80,9 +83,9 @@ export function ChooseProgram() {
           <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center mb-8 relative z-10">
             <Rocket className="text-primary w-8 h-8" />
           </div>
-          <h3 className="font-headline text-2xl font-bold mb-4 relative z-10">Professional Development</h3>
-          <p className="text-on-surface-variant mb-8 flex-grow relative z-10">One-on-one tailored instruction focusing on your specific professional or academic goals.</p>
-          <button className="w-full bg-primary text-white py-4 rounded-xl font-bold hover:bg-black transition-colors relative z-10">Enquire Now</button>
+          <h3 className="font-headline text-2xl font-bold mb-4 relative z-10">{t.chooseProgram.profDev.title}</h3>
+          <p className="text-on-surface-variant mb-8 flex-grow relative z-10">{t.chooseProgram.profDev.desc}</p>
+          <button className="w-full bg-primary text-white py-4 rounded-xl font-bold hover:bg-black transition-colors relative z-10">{t.chooseProgram.profDev.cta}</button>
         </motion.div>
       </div>
     </section>

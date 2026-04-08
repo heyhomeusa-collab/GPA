@@ -76,11 +76,11 @@
 }
 
 .animate-marquee {
-  animation: marquee 46s linear infinite;
+  animation: marquee 92s linear infinite;
 }
 
 .animate-marquee-reverse {
-  animation: marquee-reverse 46s linear infinite;
+  animation: marquee-reverse 92s linear infinite;
 }
 
 .group:hover .animate-marquee,

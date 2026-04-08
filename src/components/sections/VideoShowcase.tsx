@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Play } from 'lucide-react';
 import { assets } from '../../config/assets';
+import { useTranslation } from '../../hooks/useTranslation';
 
 /**
  * @license
@@ -10,6 +11,7 @@ import { assets } from '../../config/assets';
 
 export function VideoShowcase() {
   const [isPlaying, setIsPlaying] = React.useState(false);
+  const { t } = useTranslation();
 
   return (
     <section className="max-w-6xl mx-auto px-8 py-20 -mt-[60px]">
@@ -34,8 +36,8 @@ export function VideoShowcase() {
                 </button>
               </div>
               <div className="absolute bottom-8 left-8 text-white max-w-md pointer-events-none">
-                <h2 className="font-headline text-3xl font-bold mb-2">Live the dream at SSC</h2>
-                <p className="text-white/80">Experience the vibrant energy of Seminole State College Florida campus through the eyes of our students.</p>
+                <h2 className="font-headline text-3xl font-bold mb-2">{t.videoShowcase.title}</h2>
+                <p className="text-white/80">{t.videoShowcase.description}</p>
               </div>
             </>
           ) : (

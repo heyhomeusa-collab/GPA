@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from '../../hooks/useTranslation';
 
 /**
  * @license
@@ -6,13 +7,15 @@ import React from 'react';
  */
 
 export function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer aria-label="Footer" className="bg-surface-variant/30 py-20 px-8">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 max-w-screen-2xl mx-auto">
         <div className="col-span-1 lg:col-span-2">
           <div className="text-lg font-black text-primary mb-6">GLOBAL PARTNERS ACADEMY</div>
           <p className="text-on-surface-variant max-w-sm mb-8 leading-relaxed">
-            GPA is a premier academic institution in Orlando, Florida, providing affordable, high-quality American education.
+            {t.footer.description}
           </p>
           <div className="flex gap-4">
             <a className="text-primary/60 hover:text-primary transition-colors" href="#">
@@ -24,31 +27,31 @@ export function Footer() {
           </div>
         </div>
         <div>
-          <h4 className="font-headline font-bold mb-6 uppercase tracking-widest text-xs">University</h4>
+          <h4 className="font-headline font-bold mb-6 uppercase tracking-widest text-xs">{t.footer.university}</h4>
           <ul className="space-y-4">
-            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Programs</a></li>
-            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Admissions</a></li>
-            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Campus Life</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">{t.footer.programs}</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">{t.footer.admissions}</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">{t.footer.campusLife}</a></li>
           </ul>
         </div>
         <div>
-          <h4 className="font-headline font-bold mb-6 uppercase tracking-widest text-xs">Resources</h4>
+          <h4 className="font-headline font-bold mb-6 uppercase tracking-widest text-xs">{t.footer.resources}</h4>
           <ul className="space-y-4">
-            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">FAQ</a></li>
-            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Student Support</a></li>
-            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Us</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">{t.footer.faq}</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">{t.footer.studentSupport}</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">{t.footer.contactUs}</a></li>
           </ul>
         </div>
         <div>
-          <h4 className="font-headline font-bold mb-6 uppercase tracking-widest text-xs">Legal</h4>
+          <h4 className="font-headline font-bold mb-6 uppercase tracking-widest text-xs">{t.footer.legal}</h4>
           <ul className="space-y-4">
-            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
-            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">{t.footer.privacyPolicy}</a></li>
+            <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">{t.footer.termsOfService}</a></li>
           </ul>
         </div>
       </div>
       <div className="max-w-screen-2xl mx-auto mt-16 pt-8 border-t border-outline-variant/10 text-center text-on-surface-variant/60 text-sm">
-        &copy; {new Date().getFullYear()} Global Partners Academy. All rights reserved.
+        &copy; {new Date().getFullYear()} {t.footer.rightsLabel}
       </div>
     </footer>
   );

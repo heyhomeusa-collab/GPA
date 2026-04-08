@@ -15,7 +15,7 @@ export const VERCEL_ASSETS = {
   },
   video: {
     thumbnail: `${VERCEL_BASE_URL}/2vid/thumb.jpg`,
-    source: `${VERCEL_BASE_URL}/2vid/video2.mp4`,
+    source: `${VERCEL_BASE_URL}/2vid/video.mp4`,
   },
   programs: {
     beginner: `${VERCEL_BASE_URL}/5eli/eli1.jpg`, 
@@ -24,9 +24,9 @@ export const VERCEL_ASSETS = {
   },
   carrousel: Array.from({ length: 46 }, (_, i) => `${VERCEL_BASE_URL}/3carr/carr${i + 1}.jpg`),
   interviews: [
-    { thumbnail: `${VERCEL_BASE_URL}/7inter/int1.jpg`, video: `${VERCEL_BASE_URL}/2vid/video2.mp4` }, // Reusing main video if only thumbnails provided
-    { thumbnail: `${VERCEL_BASE_URL}/7inter/int2.jpg`, video: `${VERCEL_BASE_URL}/2vid/video2.mp4` },
-    { thumbnail: `${VERCEL_BASE_URL}/7inter/int3.jpg`, video: `${VERCEL_BASE_URL}/2vid/video2.mp4` },
+    { thumbnail: `${VERCEL_BASE_URL}/7inter/int1.jpg`, video: `${VERCEL_BASE_URL}/2vid/video.mp4` }, // Reusing main video if only thumbnails provided
+    { thumbnail: `${VERCEL_BASE_URL}/7inter/int2.jpg`, video: `${VERCEL_BASE_URL}/2vid/video.mp4` },
+    { thumbnail: `${VERCEL_BASE_URL}/7inter/int3.jpg`, video: `${VERCEL_BASE_URL}/2vid/video.mp4` },
   ],
   testimonials: Array.from({ length: 20 }, (_, i) => `${VERCEL_BASE_URL}/6rev/c${i + 1}.jpg`),
   form: {

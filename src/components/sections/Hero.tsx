@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { PremiumButton } from '../ui/PremiumButton';
 import { assets } from '../../config/assets';
+import { useTranslation } from '../../hooks/useTranslation';
 
 /**
  * @license
@@ -9,6 +10,8 @@ import { assets } from '../../config/assets';
  */
 
 export function Hero() {
+  const { t } = useTranslation();
+  
   const scrollToEnrollment = () => {
     document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -21,7 +24,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           className="font-label text-xs uppercase tracking-[0.3em] text-secondary font-bold mb-6 block"
         >
-          Florida Academic Excellence
+          {t.hero.badge}
         </motion.span>
 
         <div className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 xl:-translate-x-32 z-20">
@@ -44,7 +47,7 @@ export function Hero() {
           className="font-headline text-5xl md:text-8xl lg:text-9xl font-light tracking-tighter leading-[0.95] text-primary mb-8" 
           id="hero-title"
         >
-          THE <span className="font-bold">AUTHENTIC</span> AMERICAN <span className="italic font-normal text-secondary">COLLEGE</span> EXPERIENCE
+          {t.hero.titleLine1} <span className="font-bold">{t.hero.titleLine2Authentic}</span> {t.hero.titleLine3American} <span className="italic font-normal text-secondary">{t.hero.titleLine4College}</span> {t.hero.titleLine5Experience}
         </motion.h1>
 
         <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 xl:translate-x-32 z-20">
@@ -66,7 +69,7 @@ export function Hero() {
           transition={{ delay: 0.4 }}
           className="font-body text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto mb-12 leading-relaxed"
         >
-          Your Official Gateway to learn English in the Seminole State College's English Language Institute 
+          {t.hero.subtitle}
         </motion.p>
         
         <motion.div 
@@ -76,7 +79,7 @@ export function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-6"
         >
           <PremiumButton onClick={scrollToEnrollment}>
-            Get Started Today
+            {t.hero.cta}
           </PremiumButton>
         </motion.div>
       </div>

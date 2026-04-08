@@ -29,15 +29,15 @@ export function CampusGallery() {
     if (!scrollRef.current) return;
     
     const { scrollLeft, scrollWidth } = scrollRef.current;
-    const thirdWidth = scrollWidth / 3;
+    const segmentWidth = scrollWidth / 3;
 
-    // Boundary checks for infinite loop
-    if (scrollLeft <= 10) {
-      // Near the very beginning, jump to the start of the middle set
-      scrollRef.current.scrollLeft = thirdWidth + scrollLeft;
-    } else if (scrollLeft >= (thirdWidth * 2) + (thirdWidth - 100)) {
-      // Near the very end, jump back to the middle set
-      scrollRef.current.scrollLeft = scrollLeft - thirdWidth;
+    // Use a more responsive jumping logic
+    if (scrollLeft >= segmentWidth * 2) {
+      // We've scrolled into the third segment, snap back to the start of the second segment
+      scrollRef.current.scrollLeft = scrollLeft - segmentWidth;
+    } else if (scrollLeft <= 5) {
+      // Near the very beginning, jump to the same point in the middle segment
+      scrollRef.current.scrollLeft = segmentWidth + scrollLeft;
     }
   }, []);
 
@@ -89,7 +89,7 @@ export function CampusGallery() {
         >
           <ChevronRight className="w-8 h-8" />
         </button>
-
+ 
         <div 
           ref={scrollRef} 
           onScroll={handleInfiniteScroll}
@@ -98,7 +98,10 @@ export function CampusGallery() {
         >
           {/* Triple buffer: [...images, ...images, ...images] */}
           {[...images, ...images, ...images].map((img, i) => (
-            <div key={i} className={`flex-shrink-0 ${widths[i % widths.length]} h-[500px] rounded-[2rem] overflow-hidden shadow-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-300`}>
+            <div 
+              key={i} 
+              className={`flex-shrink-0 ${widths[(i % images.length) % widths.length]} h-[500px] rounded-[2rem] overflow-hidden shadow-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-300`}
+            >
               <img alt="Campus" className="w-full h-full object-cover pointer-events-none" src={img} referrerPolicy="no-referrer" />
             </div>
           ))}
