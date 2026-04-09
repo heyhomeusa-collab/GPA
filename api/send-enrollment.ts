@@ -44,17 +44,30 @@ export default async function handler(
       </ul>
     `;
 
-    // Send the email to the destination address specified
-    const data = await resend.emails.send({
-      from: 'GPA Enrollment <onboarding@resend.dev>', // You should verify a custom domain via Resend, but onboarding@resend.dev is the default testing address
-      to: 'gpacademy1@gmail.com', // Set destination directly via hardcode, or process.env.SALES_EMAIL as an alternative
+    // Send the email
+    const { data, error } = await resend.emails.send({
+      from: 'GPA Enrollment <onboarding@resend.dev>',
+      to: ['globalpacademy1@gmail.com'],
+      reply_to: email, // Allows you to click "Reply" and message the student directly
       subject: `New Lead: ${fullName} - GPA English Institute`,
       html: htmlContent,
     });
 
+    if (error) {
+      console.error('Resend error:', error);
+      return response.status(400).json({ 
+        success: false, 
+        error: error.message,
+        details: 'If you are in Sandbox mode, you can only send to the email you signed up with.'
+      });
+    }
+
     return response.status(200).json({ success: true, data });
-  } catch (error) {
-    console.error('Error sending email:', error);
-    return response.status(500).json({ error: 'Failed to send email' });
+  } catch (error: any) {
+    console.error('System error sending email:', error);
+    return response.status(500).json({ 
+      error: 'Failed to send email',
+      message: error.message 
+    });
   }
 }

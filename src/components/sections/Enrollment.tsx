@@ -88,7 +88,11 @@ export function Enrollment() {
         body: JSON.stringify({ fullName, email, whatsapp, dob, country, term, level, course })
       });
 
-      if (!response.ok) throw new Error("Failed to send");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || data.message || "Failed to send");
+      }
 
       setSubmitStatus("success");
       // Clear form except non-controlled inputs (PhoneInput internal state resets aren't implemented, but parent clears)
@@ -100,9 +104,9 @@ export function Enrollment() {
       setLevel("");
       setCourse("");
       setTimeout(() => setSubmitStatus("idle"), 5000);
-    } catch (err) {
+    } catch (err: any) {
       setSubmitStatus("error");
-      setErrorMessage("System error: Could not send enrollment. Please try again.");
+      setErrorMessage(err.message || "System error: Could not send enrollment. Please try again.");
     } finally {
       setIsLoading(false);
     }
