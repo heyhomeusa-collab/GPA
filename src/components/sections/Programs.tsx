@@ -64,14 +64,15 @@ export function Programs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className="group relative overflow-hidden rounded-[2.5rem] bg-surface-container h-[450px] hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
           >
-            <img alt={p.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src={p.img} />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent"></div>
-            <div className="absolute bottom-0 left-0 p-8 text-white">
-              <span className="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-4 inline-block">{p.tag}</span>
-              <h3 className="font-headline text-2xl font-bold mb-2">{p.title}</h3>
-              <p className="text-white/70 text-sm mb-6">{p.desc}</p>
+            <div className="group relative overflow-hidden rounded-[2.5rem] bg-surface-container h-[450px] hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+              <img alt={p.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src={p.img} />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 p-8 text-white">
+                <span className="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-4 inline-block">{p.tag}</span>
+                <h3 className="font-headline text-2xl font-bold mb-2">{p.title}</h3>
+                <p className="text-white/70 text-sm mb-6">{p.desc}</p>
+              </div>
             </div>
           </motion.div>
         ))}

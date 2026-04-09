@@ -34,8 +34,9 @@ export function Stats() {
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="md:col-span-2 bg-[#000040] text-white rounded-[2.5rem] flex flex-col justify-between relative overflow-hidden group p-12 pl-16 md:pl-24 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 md:-ml-20 lg:-ml-32"
+          className="md:col-span-2 md:-ml-20 lg:-ml-32"
         >
+          <div className="bg-[#000040] text-white rounded-[2.5rem] flex flex-col justify-between relative overflow-hidden group p-12 pl-16 md:pl-24 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 h-full">
           <div className="relative z-10">
             <h2 className="font-headline text-4xl font-bold mb-4">{t.stats.title}</h2>
             <p className="text-white/80 text-lg max-w-md italic">{t.stats.description}</p>
@@ -52,6 +53,7 @@ export function Stats() {
           </div>
           <div className="absolute -top-8 -right-8 p-8 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12">
             <GraduationCap className="w-64 h-64 text-white/5" />
+          </div>
           </div>
         </motion.div>
       </div>

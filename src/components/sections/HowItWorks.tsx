@@ -35,15 +35,16 @@ export function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="relative hover:-translate-y-2 transition-transform duration-300 group"
             >
-              <div className="text-[10rem] font-headline font-bold text-white/[0.03] group-hover:text-[#fcd400]/30 transition-colors duration-500 absolute -top-20 -left-6 pointer-events-none select-none leading-none">{s.num}</div>
-              <div className="relative">
-                <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-8 shadow-2xl border border-white/5">
-                  <s.icon className="text-white w-8 h-8" />
+              <div className="relative hover:-translate-y-2 transition-transform duration-300 group h-full">
+                <div className="text-[10rem] font-headline font-bold text-white/[0.03] group-hover:text-[#fcd400]/30 transition-colors duration-500 absolute -top-20 -left-6 pointer-events-none select-none leading-none">{s.num}</div>
+                <div className="relative">
+                  <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-8 shadow-2xl border border-white/5">
+                    <s.icon className="text-white w-8 h-8" />
+                  </div>
+                  <h3 className="font-headline text-2xl font-bold mb-4">{s.title}</h3>
+                  <p className="text-on-primary-container text-base leading-relaxed opacity-80">{s.desc}</p>
                 </div>
-                <h3 className="font-headline text-2xl font-bold mb-4">{s.title}</h3>
-                <p className="text-on-primary-container text-base leading-relaxed opacity-80">{s.desc}</p>
               </div>
             </motion.div>
           ))}

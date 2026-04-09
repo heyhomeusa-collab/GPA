@@ -14,7 +14,11 @@ interface PremiumButtonProps {
 
 export function PremiumButton({ onClick, children, className = '' }: PremiumButtonProps) {
   return (
-    <div className={`relative group ${className}`}>
+    <motion.div 
+      initial="initial"
+      whileHover="hover"
+      className={`relative group ${className}`}
+    >
       {/* Outer Glow on Hover */}
       <motion.div
         variants={{
@@ -26,9 +30,7 @@ export function PremiumButton({ onClick, children, className = '' }: PremiumButt
       
       <motion.button
         onClick={onClick}
-        whileHover="hover"
         whileTap={{ scale: 0.98 }}
-        initial="initial"
         className="relative z-10 w-full sm:w-auto bg-primary hover:bg-primary/50 backdrop-blur-md text-white px-14 py-5 rounded-full font-bold tracking-wide shadow-2xl transition-all duration-500 overflow-hidden border border-white/10"
       >
         {/* Glassy Highlight */}
@@ -51,6 +53,6 @@ export function PremiumButton({ onClick, children, className = '' }: PremiumButt
           </span>
         </span>
       </motion.button>
-    </div>
+    </motion.div>
   );
 }
