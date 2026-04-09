@@ -94,7 +94,7 @@ const countryCodes = [
 
 export { countryCodes };
 
-export function PhoneInput() {
+export function PhoneInput({ onChange }: { onChange?: (val: string) => void }) {
   const [phoneCode, setPhoneCode] = useState('+1');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [phoneError, setPhoneError] = useState('');
@@ -114,6 +114,10 @@ export function PhoneInput() {
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value.replace(/\D/g, ''); // Only allow numbers
     setPhoneNumber(val);
+    if (onChange) {
+      onChange(phoneCode + val);
+    }
+
     
     if (phoneError && val.length >= 7 && val.length <= 15) {
       setPhoneError('');
@@ -160,6 +164,9 @@ export function PhoneInput() {
               onClick={() => {
                 setPhoneCode(c.code);
                 setIsOpen(false);
+                if (onChange) {
+                  onChange(c.code + phoneNumber);
+                }
               }}
             >
               <span className="text-xl leading-none shrink-0">{c.flag}</span>

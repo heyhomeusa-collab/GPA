@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageCircle } from 'lucide-react';
+import { MessageCircle, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { PhoneInput, countryCodes } from '../ui/PhoneInput';
 import { CustomDatePicker } from '../ui/CustomDatePicker';
 import { CustomSelect } from '../ui/CustomSelect';
@@ -21,6 +21,11 @@ export function Enrollment() {
   const [emailError, setEmailError] = useState("");
   const [dob, setDob] = useState("");
   const [dobError, setDobError] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -63,17 +68,63 @@ export function Enrollment() {
     validateAge(dob);
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (emailError || dobError) return;
+    if (!fullName || !email || !country || !term || !level || !course) {
+      setErrorMessage("Please fill all required fields (WhatsApp & DOB are optional).");
+      setSubmitStatus("error");
+      return;
+    }
+    
+    setErrorMessage("");
+    setSubmitStatus("idle");
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/send-enrollment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullName, email, whatsapp, dob, country, term, level, course })
+      });
+
+      if (!response.ok) throw new Error("Failed to send");
+
+      setSubmitStatus("success");
+      // Clear form except non-controlled inputs (PhoneInput internal state resets aren't implemented, but parent clears)
+      setFullName("");
+      setEmail("");
+      setDob("");
+      setCountry("");
+      setTerm("");
+      setLevel("");
+      setCourse("");
+      setTimeout(() => setSubmitStatus("idle"), 5000);
+    } catch (err) {
+      setSubmitStatus("error");
+      setErrorMessage("System error: Could not send enrollment. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <section className="max-w-screen-2xl mx-auto px-8 pt-[50px] pb-24 -mt-[40px] mb-[-10px]" id="enrollment">
       <div className="bg-white rounded-[3rem] shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 mt-0">
         <div className="p-8 md:p-16 flex flex-col justify-center">
           <p className="text-on-surface-variant mb-10 text-lg">{t.enrollment.description}</p>
           
-          <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">{t.enrollment.form.fullName}</label>
-                <input className="w-full bg-surface-container-low border-0 rounded-xl py-4 px-6 focus:ring-2 focus:ring-primary/20 text-sm outline-none" placeholder={t.enrollment.form.fullNamePlaceholder} type="text" />
+                <input 
+                  className="w-full bg-surface-container-low border-0 rounded-xl py-4 px-6 focus:ring-2 focus:ring-primary/20 text-sm outline-none" 
+                  placeholder={t.enrollment.form.fullNamePlaceholder} 
+                  type="text" 
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                />
               </div>
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">{t.enrollment.form.email}</label>
@@ -98,7 +149,7 @@ export function Enrollment() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">{t.enrollment.form.whatsapp}</label>
-                <PhoneInput />
+                <PhoneInput onChange={setWhatsapp} />
               </div>
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">{t.enrollment.form.dob}</label>
@@ -158,9 +209,34 @@ export function Enrollment() {
                 />
               </div>
             </div>
-            <button className="w-full bg-primary text-white py-5 rounded-xl font-headline font-bold text-xl hover:bg-black transition-all shadow-lg hover:shadow-primary/20" type="submit">
-              {t.enrollment.form.submit}
+            <button 
+              className="w-full bg-primary text-white py-5 rounded-xl font-headline font-bold text-xl hover:bg-black transition-all shadow-lg hover:shadow-primary/20 disabled:opacity-75 disabled:cursor-not-allowed flex items-center justify-center gap-3" 
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-6 h-6 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                t.enrollment.form.submit
+              )}
             </button>
+
+            {submitStatus === 'success' && (
+              <div className="bg-green-50 text-green-700 p-4 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2">
+                <CheckCircle2 className="w-6 h-6 shrink-0" />
+                <p className="text-sm font-medium">Your enrollment has been successfully submitted. Our team will contact you soon!</p>
+              </div>
+            )}
+
+            {submitStatus === 'error' && (
+              <div className="bg-red-50 text-red-700 p-4 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2">
+                <AlertCircle className="w-6 h-6 shrink-0" />
+                <p className="text-sm font-medium">{errorMessage}</p>
+              </div>
+            )}
           </form>
         </div>
         
