@@ -32,9 +32,9 @@ export function Home() {
       <ChooseProgram />
       <HowItWorks />
       <Reviews />
-      <section className="max-w-screen-2xl mx-auto px-8 py-24 text-center">
+      <section className="max-w-screen-2xl mx-auto px-8 pt-24 pb-12 text-center">
         <span className="font-label text-xs uppercase tracking-widest text-secondary font-bold mb-4 block">Apply now</span>
-        <h2 className="font-headline text-5xl font-bold tracking-tight text-primary mb-[-200px]">Start your journey today!</h2>
+        <h2 className="font-headline text-5xl font-bold tracking-tight text-primary mb-0">Start your journey today!</h2>
       </section>
       <Enrollment />
       <FAQ />

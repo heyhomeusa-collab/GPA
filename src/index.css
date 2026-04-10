@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;500;700&display=swap');
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @theme {
   --color-primary: #000040;
@@ -21,6 +22,26 @@
   --font-headline: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-label: 'Inter', sans-serif;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 8s ease-in-out infinite;
+  --animate-float-alt: float-alt 7s ease-in-out infinite;
+  --animate-pulse-soft: pulse-soft 4s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+  }
+
+  @keyframes float-alt {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(15px) rotate(-2deg); }
+  }
+
+  @keyframes pulse-soft {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+  }
 }
 
 @layer utilities {
@@ -57,13 +78,10 @@
 }
 
 @keyframes pulse-soft {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.8; }
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
 }
 
-.animate-pulse-soft {
-  animation: pulse-soft 3s ease-in-out infinite;
-}
 
 @keyframes marquee {
   0% { transform: translateX(0); }

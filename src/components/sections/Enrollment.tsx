@@ -123,7 +123,7 @@ export function Enrollment() {
   };
 
   return (
-    <section className="max-w-screen-2xl mx-auto px-8 pt-[50px] pb-24 -mt-[40px] mb-[-10px]" id="enrollment">
+    <section className="max-w-screen-2xl mx-auto px-8 pt-24 pb-24 mb-0" id="enrollment">
       <div className="bg-white rounded-[3rem] shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 mt-0">
         <div className="p-8 md:p-16 flex flex-col justify-center">
           <p className="text-on-surface-variant mb-10 text-lg">{t.enrollment.description}</p>
@@ -303,11 +303,11 @@ export function Enrollment() {
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/80 to-transparent"></div>
             </div>
 
-            <div className="absolute top-4 -left-24 w-40 bg-white p-2 pb-8 shadow-xl -rotate-12 z-20 rounded-sm hover:-translate-y-4 hover:rotate-[-4deg] hover:scale-110 transition-all duration-500 cursor-pointer hover:z-30 hover:shadow-2xl">
+            <div className="absolute top-4 -left-24 w-40 bg-white p-2 pb-8 shadow-xl -rotate-12 z-20 rounded-sm hover:-translate-y-4 hover:rotate-[-4deg] hover:scale-110 transition-all duration-500 cursor-pointer hover:z-30 hover:shadow-2xl animate-float">
               <img alt="Campus Palm Trees" className="w-full aspect-square object-cover" src={assets.form.polaroid1} />
             </div>
 
-            <div className="absolute bottom-8 -right-24 w-44 bg-white p-2 pb-8 shadow-2xl rotate-12 z-20 rounded-sm hover:-translate-y-4 hover:rotate-[4deg] hover:scale-110 transition-all duration-500 cursor-pointer hover:z-30 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)]">
+            <div className="absolute bottom-8 -right-24 w-44 bg-white p-2 pb-8 shadow-2xl rotate-12 z-20 rounded-sm hover:-translate-y-4 hover:rotate-[4deg] hover:scale-110 transition-all duration-500 cursor-pointer hover:z-30 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] animate-float-alt">
               <img alt="Global Community" className="w-full aspect-square object-cover" src={assets.form.polaroid2} />
             </div>
           </div>

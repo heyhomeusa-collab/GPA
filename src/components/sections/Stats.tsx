@@ -51,7 +51,7 @@ export function Stats() {
               <span className="text-sm font-label uppercase tracking-widest opacity-70">{t.stats.hundredDesc}</span>
             </div>
           </div>
-          <div className="absolute -top-8 -right-8 p-8 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12">
+          <div className="absolute -top-8 -right-8 p-8 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12 animate-pulse-soft">
             <GraduationCap className="w-64 h-64 text-white/5" />
           </div>
           </div>

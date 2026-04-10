@@ -25,7 +25,7 @@ export function ChooseProgram() {
           viewport={{ once: true }}
         >
           <div className="bg-white p-10 rounded-[2.5rem] border border-outline-variant/20 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-full relative overflow-hidden group">
-            <div className="absolute -top-8 -right-8 p-8 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12 pointer-events-none">
+            <div className="absolute -top-8 -right-8 p-8 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12 pointer-events-none animate-pulse-soft">
               <GraduationCap className="w-64 h-64 text-primary/5" />
             </div>
             <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center mb-8 relative z-10">
@@ -52,7 +52,7 @@ export function ChooseProgram() {
           transition={{ delay: 0.1 }}
         >
           <div className="bg-primary text-white p-10 rounded-[2.5rem] shadow-2xl flex flex-col h-full relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
-            <div className="absolute -top-8 -right-8 p-8 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12 pointer-events-none">
+            <div className="absolute -top-8 -right-8 p-8 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12 pointer-events-none animate-pulse-soft">
               <Star className="w-64 h-64 text-white/5" />
             </div>
             <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-8 relative z-10">
@@ -79,7 +79,7 @@ export function ChooseProgram() {
           transition={{ delay: 0.2 }}
         >
           <div className="bg-white p-10 rounded-[2.5rem] border border-outline-variant/20 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-full relative overflow-hidden group">
-            <div className="absolute -top-8 -right-8 p-8 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12 pointer-events-none">
+            <div className="absolute -top-8 -right-8 p-8 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12 pointer-events-none animate-pulse-soft">
               <Rocket className="w-64 h-64 text-primary/5" />
             </div>
             <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center mb-8 relative z-10">

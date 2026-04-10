@@ -30,8 +30,16 @@ export function Hero() {
         <div className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-24 xl:-translate-x-48 z-20">
           <motion.div 
             initial={{ opacity: 0, x: -50, rotate: -15 }}
-            animate={{ opacity: 1, x: 0, rotate: -6 }}
-            transition={{ delay: 0.2, type: "spring" }}
+            animate={{ 
+              opacity: 1, 
+              x: 0, 
+              rotate: -6,
+              y: [0, -15, 0]
+            }}
+            transition={{ 
+              default: { delay: 0.2, type: "spring" },
+              y: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+            }}
             className="bg-white p-3 shadow-2xl w-52 xl:w-72 transition-transform hover:rotate-0 duration-500"
           >
             <div className="aspect-square overflow-hidden">
@@ -53,8 +61,16 @@ export function Hero() {
         <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-24 xl:translate-x-48 z-20">
           <motion.div 
             initial={{ opacity: 0, x: 50, rotate: 15 }}
-            animate={{ opacity: 1, x: 0, rotate: 6 }}
-            transition={{ delay: 0.3, type: "spring" }}
+            animate={{ 
+              opacity: 1, 
+              x: 0, 
+              rotate: 6,
+              y: [0, 15, 0]
+            }}
+            transition={{ 
+              default: { delay: 0.3, type: "spring" },
+              y: { duration: 7, repeat: Infinity, ease: "easeInOut" }
+            }}
             className="bg-white p-3 shadow-2xl w-52 xl:w-72 transition-transform hover:rotate-0 duration-500"
           >
             <div className="aspect-square overflow-hidden">
