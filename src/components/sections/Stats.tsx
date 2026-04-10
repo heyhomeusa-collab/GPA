@@ -24,7 +24,7 @@ export function Stats() {
         >
           <div className="w-full max-w-sm -rotate-3 transform hover:rotate-0 transition-transform duration-500">
             <div className="aspect-[430/492] overflow-hidden rounded-xl shadow-2xl bg-white p-4">
-              <img alt="GPA Global" className="w-full h-full object-cover rounded-lg" src={assets.gpa.main} />
+              <img alt={t.stats.altGpaGlobal} className="w-full h-full object-cover rounded-lg" src={assets.gpa.main} />
             </div>
           </div>
         </motion.div>

@@ -26,6 +26,8 @@ export function Enrollment() {
   const [isLoading, setIsLoading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [agreeTerms, setAgreeTerms] = useState(false);
+  const [consentMarketing, setConsentMarketing] = useState(false);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -71,6 +73,11 @@ export function Enrollment() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (emailError || dobError) return;
+    if (!agreeTerms || !consentMarketing) {
+      setErrorMessage("Please accept the terms and communication consent to proceed.");
+      setSubmitStatus("error");
+      return;
+    }
     if (!fullName || !email || !country || !term || !level || !course) {
       setErrorMessage("Please fill all required fields (WhatsApp & DOB are optional).");
       setSubmitStatus("error");
@@ -102,7 +109,10 @@ export function Enrollment() {
       setCountry("");
       setTerm("");
       setLevel("");
+      setLevel("");
       setCourse("");
+      setAgreeTerms(false);
+      setConsentMarketing(false);
       setTimeout(() => setSubmitStatus("idle"), 5000);
     } catch (err: any) {
       setSubmitStatus("error");
@@ -213,10 +223,45 @@ export function Enrollment() {
                 />
               </div>
             </div>
+
+            <div className="space-y-4 py-4">
+              <label className="flex items-start gap-4 cursor-pointer group">
+                <input 
+                  type="checkbox" 
+                  checked={agreeTerms}
+                  onChange={(e) => setAgreeTerms(e.target.checked)}
+                  className="mt-1 w-6 h-6 shrink-0 rounded-lg border-2 border-outline-variant/30 text-primary focus:ring-primary/20 transition-all cursor-pointer appearance-auto"
+                />
+                <span className="text-sm text-on-surface-variant leading-relaxed">
+                  {t.enrollment.form.consentTerms
+                    .replace('{terms}', '___TERMS___')
+                    .replace('{privacy}', '___PRIVACY___')
+                    .split('___').map((part, i) => {
+                      if (part === 'TERMS') return <a key={i} href="/terms" target="_blank" className="text-primary font-bold hover:underline">{t.enrollment.form.termsLink}</a>;
+                      if (part === 'PRIVACY') return <a key={i} href="/privacy" target="_blank" className="text-primary font-bold hover:underline">{t.enrollment.form.privacyLink}</a>;
+                      return part;
+                    })
+                  }
+                </span>
+              </label>
+
+              <label className="flex items-start gap-4 cursor-pointer group">
+                <input 
+                  type="checkbox" 
+                  checked={consentMarketing}
+                  onChange={(e) => setConsentMarketing(e.target.checked)}
+                  className="mt-1 w-6 h-6 shrink-0 rounded-lg border-2 border-outline-variant/30 text-primary focus:ring-primary/20 transition-all cursor-pointer appearance-auto"
+                />
+                <span className="text-sm text-on-surface-variant leading-relaxed">
+                  {t.enrollment.form.consentMarketing}
+                </span>
+              </label>
+            </div>
+
             <button 
-              className="w-full bg-primary text-white py-5 rounded-xl font-headline font-bold text-xl hover:bg-black transition-all shadow-lg hover:shadow-primary/20 disabled:opacity-75 disabled:cursor-not-allowed flex items-center justify-center gap-3" 
+              className="w-full bg-primary text-white py-5 rounded-xl font-headline font-bold text-xl hover:bg-black transition-all shadow-lg hover:shadow-primary/20 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-3" 
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || !agreeTerms || !consentMarketing}
             >
               {isLoading ? (
                 <>

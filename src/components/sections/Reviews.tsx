@@ -132,7 +132,7 @@ export function Reviews() {
           </>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-on-surface-variant font-medium">
-            No reviews available right now.
+            {t.reviews.noReviews}
           </div>
         )}
       </div>

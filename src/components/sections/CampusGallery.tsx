@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { assets } from '../../config/assets';
+import { useTranslation } from '../../hooks/useTranslation';
 
 /**
  * @license
@@ -12,6 +13,7 @@ const images = assets.carrousel;
 const widths = ["w-[400px]", "w-[600px]", "w-[400px]", "w-[500px]", "w-[450px]", "w-[550px]", "w-[400px]", "w-[600px]", "w-[450px]", "w-[500px]"];
 
 export function CampusGallery() {
+  const { t } = useTranslation();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isReady, setIsReady] = useState(false);
@@ -78,14 +80,14 @@ export function CampusGallery() {
         <button 
           onClick={() => scrollByAmount('left')} 
           className="absolute left-8 top-1/2 -translate-y-1/2 z-20 liquid-glass p-4 rounded-full shadow-2xl transition-all hover:scale-110 active:scale-95 text-primary border border-primary/10"
-          aria-label="Previous image"
+          aria-label={t.campusGallery.prevImg}
         >
           <ChevronLeft className="w-8 h-8" />
         </button>
         <button 
           onClick={() => scrollByAmount('right')} 
           className="absolute right-8 top-1/2 -translate-y-1/2 z-20 liquid-glass p-4 rounded-full shadow-2xl transition-all hover:scale-110 active:scale-95 text-primary border border-primary/10"
-          aria-label="Next image"
+          aria-label={t.campusGallery.nextImg}
         >
           <ChevronRight className="w-8 h-8" />
         </button>
@@ -102,7 +104,7 @@ export function CampusGallery() {
               key={i} 
               className={`flex-shrink-0 ${widths[(i % images.length) % widths.length]} h-[500px] rounded-[2rem] overflow-hidden shadow-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-300`}
             >
-              <img alt="Campus" className="w-full h-full object-cover pointer-events-none" src={img} referrerPolicy="no-referrer" />
+              <img alt={t.campusGallery.altCampus} className="w-full h-full object-cover pointer-events-none" src={img} referrerPolicy="no-referrer" />
             </div>
           ))}
         </div>

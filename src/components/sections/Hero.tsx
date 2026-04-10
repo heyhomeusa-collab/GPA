@@ -27,7 +27,7 @@ export function Hero() {
           {t.hero.badge}
         </motion.span>
 
-        <div className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 xl:-translate-x-32 z-20">
+        <div className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-24 xl:-translate-x-48 z-20">
           <motion.div 
             initial={{ opacity: 0, x: -50, rotate: -15 }}
             animate={{ opacity: 1, x: 0, rotate: -6 }}
@@ -35,7 +35,7 @@ export function Hero() {
             className="bg-white p-3 shadow-2xl w-52 xl:w-72 transition-transform hover:rotate-0 duration-500"
           >
             <div className="aspect-square overflow-hidden">
-              <img alt="Global Community" className="w-full h-full object-cover" src={assets.hero.globalCommunity} />
+              <img alt={t.hero.altGlobalCommunity} className="w-full h-full object-cover" src={assets.hero.globalCommunity} />
             </div>
           </motion.div>
         </div>
@@ -50,7 +50,7 @@ export function Hero() {
           {t.hero.titleLine1} <span className="font-bold">{t.hero.titleLine2Authentic}</span> {t.hero.titleLine3American} <span className="italic font-normal text-secondary">{t.hero.titleLine4College}</span> {t.hero.titleLine5Experience}
         </motion.h1>
 
-        <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 xl:translate-x-32 z-20">
+        <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-24 xl:translate-x-48 z-20">
           <motion.div 
             initial={{ opacity: 0, x: 50, rotate: 15 }}
             animate={{ opacity: 1, x: 0, rotate: 6 }}
@@ -58,7 +58,7 @@ export function Hero() {
             className="bg-white p-3 shadow-2xl w-52 xl:w-72 transition-transform hover:rotate-0 duration-500"
           >
             <div className="aspect-square overflow-hidden">
-              <img alt="Florida Campus" className="w-full h-full object-cover" src={assets.hero.floridaCampus} />
+              <img alt={t.hero.altFloridaCampus} className="w-full h-full object-cover" src={assets.hero.floridaCampus} />
             </div>
           </motion.div>
         </div>
