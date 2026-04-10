@@ -75,13 +75,13 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-}
 
-@keyframes pulse-soft {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.05); opacity: 1; }
+  /* Manual overrides for animations to ensure they load regardless of theme parsing */
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-float-slow { animation: float 8s ease-in-out infinite; }
+  .animate-float-alt { animation: float-alt 7s ease-in-out infinite; }
+  .animate-pulse-soft { animation: pulse-soft 4s ease-in-out infinite; }
 }
-
 
 @keyframes marquee {
   0% { transform: translateX(0); }

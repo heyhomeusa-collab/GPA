@@ -9,7 +9,7 @@ import { BadgeCheck } from 'lucide-react';
 export function VipConcierge() {
   return (
     <section className="py-12 text-left max-w-screen-2xl mx-auto px-8 relative group">
-      <div className="absolute top-0 right-12 z-0 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12 pointer-events-none">
+      <div className="absolute top-0 right-12 z-0 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12 pointer-events-none animate-float-alt">
         <BadgeCheck className="w-60 h-60 text-primary/15" />
       </div>
       <h2 className="font-headline text-xs font-bold tracking-tight mb-2 text-secondary">Global Partners Academy</h2>

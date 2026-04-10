@@ -33,14 +33,12 @@ export function Hero() {
             animate={{ 
               opacity: 1, 
               x: 0, 
-              rotate: -6,
-              y: [0, -15, 0]
+              rotate: -6
             }}
             transition={{ 
-              default: { delay: 0.2, type: "spring" },
-              y: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+              delay: 0.2, type: "spring"
             }}
-            className="bg-white p-3 shadow-2xl w-52 xl:w-72 transition-transform hover:rotate-0 duration-500"
+            className="bg-white p-3 shadow-2xl w-52 xl:w-72 transition-transform hover:rotate-0 duration-500 animate-float"
           >
             <div className="aspect-square overflow-hidden">
               <img alt={t.hero.altGlobalCommunity} className="w-full h-full object-cover" src={assets.hero.globalCommunity} />
@@ -64,14 +62,12 @@ export function Hero() {
             animate={{ 
               opacity: 1, 
               x: 0, 
-              rotate: 6,
-              y: [0, 15, 0]
+              rotate: 6
             }}
             transition={{ 
-              default: { delay: 0.3, type: "spring" },
-              y: { duration: 7, repeat: Infinity, ease: "easeInOut" }
+              delay: 0.3, type: "spring"
             }}
-            className="bg-white p-3 shadow-2xl w-52 xl:w-72 transition-transform hover:rotate-0 duration-500"
+            className="bg-white p-3 shadow-2xl w-52 xl:w-72 transition-transform hover:rotate-0 duration-500 animate-float-slow"
           >
             <div className="aspect-square overflow-hidden">
               <img alt={t.hero.altFloridaCampus} className="w-full h-full object-cover" src={assets.hero.floridaCampus} />

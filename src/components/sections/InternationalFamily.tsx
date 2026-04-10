@@ -12,7 +12,7 @@ export function InternationalFamily() {
 
   return (
     <section className="bg-white pb-[64px] pt-24 px-8 border-t border-outline-variant/10 relative group" id="international-family">
-      <div className="absolute top-0 left-12 z-0 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12 pointer-events-none">
+      <div className="absolute top-0 left-12 z-0 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12 pointer-events-none animate-float">
         <Globe className="w-60 h-60 text-primary/15" strokeWidth={1.5} />
       </div>
       <div className="max-w-screen-2xl mx-auto text-right relative z-10">
