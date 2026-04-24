@@ -1,12 +1,13 @@
 import { useLanguage } from '../context/LanguageContext';
 import { en } from '../locales/en';
 import { es } from '../locales/es';
+import { pt } from '../locales/pt';
 
 const translations = {
   us: en,
   es: es,
+  br: pt,
   // Fallbacks for now
-  br: en,
   cn: en,
   jp: en,
   tr: en,
