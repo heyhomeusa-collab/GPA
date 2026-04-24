@@ -5,7 +5,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type LanguageCode = 'us' | 'es' | 'br' | 'cn' | 'jp' | 'tr';
+export type LanguageCode = 'us' | 'es' | 'br' | 'tr';
 
 export interface Language {
   code: LanguageCode;
@@ -16,8 +16,6 @@ export const languages: Language[] = [
   { code: 'us', name: 'English' },
   { code: 'es', name: 'Español' },
   { code: 'br', name: 'Português (BR)' },
-  { code: 'cn', name: '简体中文' },
-  { code: 'jp', name: '日本語' },
   { code: 'tr', name: 'Türkçe' },
 ];
 

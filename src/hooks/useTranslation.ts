@@ -2,15 +2,13 @@ import { useLanguage } from '../context/LanguageContext';
 import { en } from '../locales/en';
 import { es } from '../locales/es';
 import { pt } from '../locales/pt';
+import { tr } from '../locales/tr';
 
 const translations = {
   us: en,
   es: es,
   br: pt,
-  // Fallbacks for now
-  cn: en,
-  jp: en,
-  tr: en,
+  tr: tr,
 };
 
 export function useTranslation() {
