@@ -28,6 +28,7 @@ export function Enrollment() {
   const [errorMessage, setErrorMessage] = useState("");
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [consentMarketing, setConsentMarketing] = useState(false);
+  const [phoneInputKey, setPhoneInputKey] = useState(0);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -102,17 +103,18 @@ export function Enrollment() {
       }
 
       setSubmitStatus("success");
-      // Clear form except non-controlled inputs (PhoneInput internal state resets aren't implemented, but parent clears)
+      // Reset controlled fields and remount phone input so its internal UI clears too.
       setFullName("");
       setEmail("");
+      setWhatsapp("");
       setDob("");
       setCountry("");
       setTerm("");
       setLevel("");
-      setLevel("");
       setCourse("");
       setAgreeTerms(false);
       setConsentMarketing(false);
+      setPhoneInputKey(prev => prev + 1);
       setTimeout(() => setSubmitStatus("idle"), 5000);
     } catch (err: any) {
       setSubmitStatus("error");
@@ -163,7 +165,7 @@ export function Enrollment() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">{t.enrollment.form.whatsapp}</label>
-                <PhoneInput onChange={setWhatsapp} />
+                <PhoneInput key={phoneInputKey} onChange={setWhatsapp} />
               </div>
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">{t.enrollment.form.dob}</label>
