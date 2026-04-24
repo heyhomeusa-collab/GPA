@@ -7,7 +7,7 @@ import { useTranslation } from '../../hooks/useTranslation';
  * SPDX-License-Identifier: Apache-2.0
  */
 
-function FAQItem({ question, answer }: { question: string, answer: string }) {
+const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -28,7 +28,7 @@ function FAQItem({ question, answer }: { question: string, answer: string }) {
       </div>
     </div>
   );
-}
+};
 
 export function FAQ() {
   const { t } = useTranslation();

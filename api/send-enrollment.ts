@@ -168,7 +168,7 @@ export default async function handler(
     const { data, error } = await resend.emails.send({
       from: 'GPA Enrollment <onboarding@resend.dev>',
       to: ['globalpacademy1@gmail.com'],
-      reply_to: cleanEmail, // Allows you to click "Reply" and message the student directly
+      replyTo: cleanEmail, // Allows you to click "Reply" and message the student directly
       subject: `New Lead: ${cleanFullName} - GPA English Institute`,
       html: htmlContent,
     });

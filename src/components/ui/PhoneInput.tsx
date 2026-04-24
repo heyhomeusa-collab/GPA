@@ -94,7 +94,7 @@ const countryCodes = [
 
 export { countryCodes };
 
-export function PhoneInput({ onChange }: { onChange?: (val: string) => void }) {
+export const PhoneInput: React.FC<{ onChange?: (val: string) => void }> = ({ onChange }) => {
   const [phoneCode, setPhoneCode] = useState('+1');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [phoneError, setPhoneError] = useState('');
@@ -186,4 +186,4 @@ export function PhoneInput({ onChange }: { onChange?: (val: string) => void }) {
       )}
     </div>
   );
-}
+};
