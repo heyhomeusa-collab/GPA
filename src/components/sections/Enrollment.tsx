@@ -235,15 +235,14 @@ export function Enrollment() {
                   className="mt-1 w-6 h-6 shrink-0 rounded-lg border-2 border-outline-variant/30 text-primary focus:ring-primary/20 transition-all cursor-pointer appearance-auto"
                 />
                 <span className="text-sm text-on-surface-variant leading-relaxed">
-                  {t.enrollment.form.consentTerms
-                    .replace('{terms}', '___TERMS___')
-                    .replace('{privacy}', '___PRIVACY___')
-                    .split('___').map((part, i) => {
-                      if (part === 'TERMS') return <a key={i} href="/terms" target="_blank" className="text-primary font-bold hover:underline">{t.enrollment.form.termsLink}</a>;
-                      if (part === 'PRIVACY') return <a key={i} href="/privacy" target="_blank" className="text-primary font-bold hover:underline">{t.enrollment.form.privacyLink}</a>;
+                  {(() => {
+                    const parts = t.enrollment.form.consentTerms.split(/(\{terms\}|\{privacy\})/);
+                    return parts.map((part, i) => {
+                      if (part === '{terms}') return <a key={i} href="/terms" target="_blank" className="text-primary font-bold hover:underline">{t.enrollment.form.termsLink}</a>;
+                      if (part === '{privacy}') return <a key={i} href="/privacy" target="_blank" className="text-primary font-bold hover:underline">{t.enrollment.form.privacyLink}</a>;
                       return part;
-                    })
-                  }
+                    });
+                  })()}
                 </span>
               </label>
 

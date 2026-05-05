@@ -51,8 +51,8 @@ export function FAQ() {
         <div className="w-24 h-1 bg-secondary mx-auto mt-6 rounded-full"></div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {faqs.map((faq, i) => (
-          <FAQItem key={i} question={faq.q} answer={faq.a} />
+        {faqs.map((faq) => (
+          <FAQItem key={faq.q} question={faq.q} answer={faq.a} />
         ))}
       </div>
     </section>

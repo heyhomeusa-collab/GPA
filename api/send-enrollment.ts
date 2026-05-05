@@ -14,6 +14,7 @@ const ALLOWED_PROGRAMS = new Set(['Short-Term', 'Long-Term', 'Professional']);
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX_ATTEMPTS = 5;
 const rateLimiter = new Map<string, number[]>();
+let lastCleanup = Date.now();
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const DOB_REGEX = /^\d{4}-\d{2}-\d{2}$/;
@@ -45,6 +46,19 @@ function getClientIp(request: VercelRequest): string {
 
 function isRateLimited(key: string): boolean {
   const now = Date.now();
+  
+  if (now - lastCleanup > RATE_LIMIT_WINDOW_MS) {
+    for (const [k, timestamps] of rateLimiter.entries()) {
+      const active = timestamps.filter(ts => now - ts < RATE_LIMIT_WINDOW_MS);
+      if (active.length === 0) {
+        rateLimiter.delete(k);
+      } else {
+        rateLimiter.set(k, active);
+      }
+    }
+    lastCleanup = now;
+  }
+
   const recent = (rateLimiter.get(key) ?? []).filter(ts => now - ts < RATE_LIMIT_WINDOW_MS);
   recent.push(now);
   rateLimiter.set(key, recent);

@@ -10,7 +10,7 @@ function LanguageHarness() {
   return (
     <div>
       <p>{t.nav.programs}</p>
-      <button onClick={() => setLanguage(availableLanguages[1])} type="button">
+      <button onClick={() => setLanguage(availableLanguages.find(l => l.code === 'es') || availableLanguages[0])} type="button">
         Switch To Spanish
       </button>
     </div>
